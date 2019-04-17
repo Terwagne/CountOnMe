@@ -9,35 +9,48 @@
 import UIKit
 
 class ViewController: UIViewController {
-  
-    // MARK: - Outlets
-
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet var numberButtons: [UIButton]!
-    @IBOutlet var operatorButtons: [UIButton]!
     
-    @IBOutlet weak var decimalButton: UIButton!
-    @IBOutlet weak var clearButton: UIButton!
-    //    MARK: - properties
+
+    
+    // /////////////////// //
+    // MARK: - PROPERTIES  //
+    // /////////////////// //
+    
+    /// Instantiate model
     let calculateBrain = CalculateBrain()
     
-    override func viewDidLoad() {
+    
+    // ///////////////////////// //
+    // MARK: - LIFECYCLE METHODS //
+    // /////////////////////////
+    
+        override func viewDidLoad() {
         super.viewDidLoad()
         calculateBrain.calculateBrainDelegate = self
     }
-    // MARK: - Action
-
+    // /////////////////// //
+    // MARK: - OUTLETS //
+    // /////////////////// //
+    
+    @IBOutlet weak var textView: UITextView!
+    @IBOutlet var numberButtons: [UIButton]!
+    @IBOutlet var operatorButtons: [UIButton]!
+    @IBOutlet weak var decimalButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
+    
+    // /////////////////// //
+    // MARK: - ACTIONS //
+    // /////////////////// //
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         for (index, numberButton) in numberButtons.enumerated() where sender == numberButton {
             calculateBrain.addNewNumber(index)
         }
     }
-  
+    
     @IBAction func tappedOperatorButton(_ sender: UIButton) {
         switch sender.tag {
         case 1:
             calculateBrain.plus()
-          
         case 2:
             calculateBrain.minus()
         case 3 :
@@ -48,13 +61,11 @@ class ViewController: UIViewController {
         default :
             break
         }
-       
     }
-
-
-@IBAction func tappedClearButton(_ sender: UIButton) {
-    calculateBrain.clearButton()
-}
+    
+    @IBAction func tappedClearButton(_ sender: UIButton) {
+        calculateBrain.clearButton()
+    }
     
     @IBAction func tappedDecimalButton(_ sender: Any) {
         if calculateBrain.canAddDecimal {
@@ -63,9 +74,11 @@ class ViewController: UIViewController {
         }
     }
 }
-// MARK: extension
+// /////////////////// //
+// MARK: - EXTENSIONS  //
+// /////////////////// //
 extension ViewController: CalculateBrainDelegate {
-   
+    
     func displayAlert(message: String) {
         let alert = UIAlertController(title: "zero", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "ok", style: .cancel, handler: nil)
@@ -74,8 +87,7 @@ extension ViewController: CalculateBrainDelegate {
     }
     
     func updateText(label: String) {
-     textView.text = label
+        textView.text = label
     }
-    
 }
 
